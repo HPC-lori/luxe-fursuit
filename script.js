@@ -242,21 +242,63 @@ function initModalLogic() {
 }
 
 // 5. 表单提交
+// --- Supabase 配置区域 ---
+// 请替换为你自己的 Supabase URL 和 Anon Key
+const SUPABASE_URL = 'https://jkcjyuaqutmjoqlnmntr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImprY2p5dWFxdXRtam9xbG5tbnRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2OTI5MDcsImV4cCI6MjA3OTI2ODkwN30.1G5r11ksuhgi7an1UtCW-Kuk68pjSwezHfRcgmJ_V8s';
+
+// 初始化 Supabase 客户端
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// 5. 表单提交 (真后端版本)
 function initInquiryForm() {
     const inquiryForm = document.querySelector('.form-wrapper form');
     if (!inquiryForm) return;
-    inquiryForm.addEventListener('submit', function(e) {
-        e.preventDefault(); 
+
+    inquiryForm.addEventListener('submit', async function(e) {
+        e.preventDefault(); // 阻止页面刷新
+
         const submitBtn = inquiryForm.querySelector('.btn-submit');
         const originalText = submitBtn.textContent;
+        
+        // 1. 获取用户填写的真实数据
+        const nameVal = document.getElementById('inputName').value;
+        const heightVal = document.getElementById('inputHeight').value;
+        const weightVal = document.getElementById('inputWeight').value;
+        const notesVal = document.getElementById('inputNotes').value;
+
+        // 2. 按钮变状态
         submitBtn.disabled = true;
-        submitBtn.textContent = "提交中... / Submitting...";
-        setTimeout(() => {
-            alert("✅ 数据提交成功！\n我们将根据您的尺寸开始初步评估。\n\nSubmission Successful!");
+        submitBtn.textContent = "正在发送到云端...";
+
+        try {
+            // 3. 向 Supabase 的 'measurements' 表格插入数据
+            const { data, error } = await supabase
+                .from('measurements')
+                .insert([
+                    { 
+                        name: nameVal, 
+                        height: heightVal, 
+                        weight: weightVal, 
+                        notes: notesVal 
+                    }
+                ]);
+
+            if (error) throw error; // 如果有错，抛出异常
+
+            // 4. 成功反馈
+            alert("✅ 成功！数据已存入 Supabase 数据库！\n我们会尽快联系您。");
+            inquiryForm.reset(); // 清空表单
+
+        } catch (err) {
+            // 5. 失败反馈
+            console.error('Error:', err);
+            alert("❌ 提交失败，请检查控制台或网络。\n错误信息: " + err.message);
+        } finally {
+            // 恢复按钮
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
-            inquiryForm.reset();
-        }, 1500);
+        }
     });
 }
 

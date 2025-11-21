@@ -75,15 +75,15 @@
             <form action="#" method="post">
                 <div class="form-group">
                     <label data-en="Full Name">姓名 / Name</label>
-                    <input type="text" data-en-ph="E.g. John Doe">
+                    <input type="text" id="inputName" data-en-ph="E.g. John Doe">
                 </div>
                 <div class="form-group">
                     <label data-en="Height (cm)">身高 / Height (cm)</label>
-                    <input type="number" data-en-ph="cm">
+                    <input type="number" id="inputHeight" data-en-ph="cm">
                 </div>
                 <div class="form-group">
                     <label data-en="Weight (kg)">体重 / Weight (kg)</label>
-                    <input type="number" data-en-ph="kg">
+                    <input type="number" id="inputWeight" data-en-ph="kg">
                 </div>
                 
                 <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -110,7 +110,7 @@
 
                 <div class="form-group">
                     <label data-en="Special Notes">特殊体型备注 / Notes</label>
-                    <textarea placeholder="例如：有些许驼背、大腿较粗等..." data-en-ph="E.g., slight hunchback, thicker thighs, etc..."></textarea>
+                    <textarea id="inputNotes" placeholder="例如：有些许驼背、大腿较粗等..." data-en-ph="E.g., slight hunchback, thicker thighs, etc..."></textarea>
                 </div>
                 
                 <button type="submit" class="btn-submit" data-en="Submit Data">提交数据</button>
@@ -142,7 +142,7 @@
             <p>&copy; 2025 Luxe Fursuit Studio. All Rights Reserved.</p>
         </div>
     </footer>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
 </html>
