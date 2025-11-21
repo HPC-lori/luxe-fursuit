@@ -147,13 +147,40 @@ input, select, textarea { border-radius: var(--radius-input); cursor: text; font
 
 footer { background: #1a1a1a; color: #888; padding: 100px 10%; text-align: center; font-size: 0.9rem; margin-top: auto; font-family: var(--font-body);}
 
+/* --- 手机端适配优化 (Mobile High-End Fix) --- */
 @media (max-width: 768px) {
+    
+    /* 1. 导航栏调整 (保持原样) */
     header { flex-direction: column; height: auto; padding: 20px; gap: 15px; }
     nav ul { margin: 0; flex-wrap: wrap; justify-content: center; padding: 0;}
     nav ul li { margin: 5px 10px; }
     .action-bar { width: 100%; justify-content: center; margin-top: 5px; }
     * { cursor: auto; }
     #cursor-dot, #cursor-ring { display: none !important; }
+
+    /* 🔥 2. 核心修复：给所有板块增加“呼吸感” */
+    section {
+        /* 左右留出 30px 的空白，不再顶边 */
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    /* 🔥 3. 优化标题距离 */
+    .section-title {
+        font-size: 2rem;       /* 标题字号稍微改小，更协调 */
+        margin-top: 60px;      /* 顶部距离减小，不要空得太离谱 */
+        margin-bottom: 40px;   /* 底部距离也减小 */
+    }
+
+    /* 🔥 4. 强制优化“设计哲学”那段文字 */
+    /* 使用 !important 覆盖掉你在 HTML 里直接写的 style="..." */
+    section p {
+        font-size: 0.95rem !important;  /* 字体改小显得精致 (原1.1rem太大) */
+        line-height: 1.8 !important;    /* 行高稍微紧凑一点点 */
+        padding: 0 10px;                /* 在原本的边距基础上再往里收一点 */
+        text-align: justify !important; /* (可选) 两端对齐，让豆腐块更方正 */
+        /* 如果不喜欢两端对齐，可以删掉上面这行，保留居中 */
+    }
 }
 
 /* --- 登录弹窗 --- */
