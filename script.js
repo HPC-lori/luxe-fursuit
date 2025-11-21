@@ -243,20 +243,33 @@ function initModalLogic() {
 
 // 5. 表单提交
 // --- Supabase 配置区域 ---
-// 请替换为你自己的 Supabase URL 和 Anon Key
 const SUPABASE_URL = 'https://jkcjyuaqutmjoqlnmntr.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImprY2p5dWFxdXRtam9xbG5tbnRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2OTI5MDcsImV4cCI6MjA3OTI2ODkwN30.1G5r11ksuhgi7an1UtCW-Kuk68pjSwezHfRcgmJ_V8s';
 
-// 初始化 Supabase 客户端
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// 【修复重点】初始化 Supabase 客户端（带防崩坏检查）
+// 先定义一个空变量
+let supabase = null;
+
+// 检查浏览器里有没有加载 Supabase 工具包
+if (window.supabase) {
+    // 如果有，才真正启动它
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+}
 
 // 5. 表单提交 (真后端版本)
 function initInquiryForm() {
     const inquiryForm = document.querySelector('.form-wrapper form');
+    // 如果页面上没有表单（比如在主页），直接结束，防止报错
     if (!inquiryForm) return;
 
     inquiryForm.addEventListener('submit', async function(e) {
         e.preventDefault(); // 阻止页面刷新
+
+        // 再次检查 Supabase 是否启动（双重保险）
+        if (!supabase) {
+            alert("❌ 系统错误：无法连接到数据库，请检查页面是否正确加载了 Supabase 脚本。");
+            return;
+        }
 
         const submitBtn = inquiryForm.querySelector('.btn-submit');
         const originalText = submitBtn.textContent;
