@@ -1,0 +1,324 @@
+/* style.css - 最终完美版 (语法修复版) */
+
+/* --- 1. 引入特殊字体库 --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Quicksand:wght@300;400;600&family=ZCOOL+XiaoWei&display=swap');
+
+/* --- 2. 细节：定制选中文本颜色 (修复：必须放在 :root 外面) --- */
+::selection {
+    background: rgba(212, 175, 55, 0.9); /* 金色背景 */
+    color: #333; /* 深色文字 */
+    text-shadow: none;
+}
+::-moz-selection {
+    background: rgba(212, 175, 55, 0.9);
+    color: #333;
+    text-shadow: none;
+}
+
+/* --- 3. 全局变量定义 --- */
+:root {
+    /* 核心配色 */
+    --bg-color: #f9f9f9; 
+    --text-main: #2c2c2c; 
+    --text-secondary: #666666;
+    --accent-color: #D4AF37; 
+    
+    /* 字体系统 */
+    --font-heading: "ZCOOL XiaoWei", "Noto Serif SC", "Songti SC", "SimSun", serif;
+    --font-body: "Quicksand", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-serif: "Noto Serif SC", "Songti SC", serif;
+
+    /* 圆角系统 */
+    --radius-card: 30px; 
+    --radius-btn: 50px;
+    --radius-input: 16px;
+
+    /* 动效曲线 */
+    --ease-luxury: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- 4. 基础重置 --- */
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+/* 滚动条美化 */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+/* 页面入场动画 */
+@keyframes pageLoadFade {
+    from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.8;
+    overflow-x: hidden;
+    letter-spacing: 0.05em;
+}
+
+h1, h2, h3, h4, .logo, .shimmer-text {
+    font-family: var(--font-heading);
+    font-weight: 400;
+}
+
+p {
+    font-family: var(--font-body);
+    font-weight: 400;
+}
+
+/* 入场动画应用 */
+header, section, footer, .page-header, .timeline-container, .filter-container, .gallery-grid, .container {
+    animation: pageLoadFade 1.2s var(--ease-luxury) forwards;
+}
+
+/* --- 导航栏 --- */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+header {
+    position: fixed; top: 0; width: 100%; height: 90px; z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center; padding: 0 5%;
+    transition: all 0.3s;
+}
+
+.logo { font-size: 28px; letter-spacing: 2px; color: var(--text-main); }
+.logo a { text-decoration: none; color: var(--text-main); cursor: none; }
+
+nav ul { display: flex; list-style: none; margin-right: 30px; }
+nav ul li { margin-left: 40px; }
+nav ul li a { 
+    text-decoration: none; color: var(--text-main); font-size: 15px; font-weight: 600; 
+    position: relative; transition: color 0.3s; cursor: none; letter-spacing: 1px;
+}
+nav ul li a:hover { color: var(--accent-color); }
+
+.action-bar { display: flex; gap: 15px; align-items: center; }
+.btn-icon {
+    border: 1px solid #eee; background: white; padding: 10px 20px;
+    border-radius: var(--radius-btn); font-size: 0.9rem; transition: all 0.3s;
+    color: var(--text-main); cursor: none; font-family: var(--font-body); font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+.btn-icon:hover { border-color: var(--accent-color); color: var(--accent-color); transform: translateY(-2px); }
+.btn-login { background: #222; color: white; border: none; }
+.btn-login:hover { background: var(--accent-color); color: white; }
+
+/* --- 通用样式 --- */
+.card, .form-wrapper, .price-card, .timeline-item .content, .gallery-item {
+    background: white;
+    border-radius: var(--radius-card) !important;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.04);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.8);
+}
+.card:hover, .price-card:hover, .gallery-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 30px 70px rgba(212, 175, 55, 0.15);
+    transition: all 0.6s var(--ease-luxury);
+}
+
+.btn-luxury, .btn-submit, .filter-btn { border-radius: var(--radius-btn); cursor: none; font-family: var(--font-heading); letter-spacing: 2px; }
+input, select, textarea { border-radius: var(--radius-input); cursor: text; font-family: var(--font-body); }
+
+/* 滚动渐显 */
+.fade-in-section { 
+    opacity: 0; transform: translateY(50px) scale(0.95);
+    transition: opacity 1.2s var(--ease-luxury), transform 1.2s var(--ease-luxury);
+}
+.fade-in-section.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+/* 登录锁定遮罩 */
+.login-lock-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); z-index: 10;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; border-radius: var(--radius-card); color: #333;
+}
+.hidden { display: none !important; }
+
+footer { background: #1a1a1a; color: #888; padding: 100px 10%; text-align: center; font-size: 0.9rem; margin-top: auto; font-family: var(--font-body);}
+
+@media (max-width: 768px) {
+    header { flex-direction: column; height: auto; padding: 20px; gap: 15px; }
+    nav ul { margin: 0; flex-wrap: wrap; justify-content: center; padding: 0;}
+    nav ul li { margin: 5px 10px; }
+    .action-bar { width: 100%; justify-content: center; margin-top: 5px; }
+    * { cursor: auto; }
+    #cursor-dot, #cursor-ring { display: none !important; }
+}
+
+/* --- 登录弹窗 --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(44, 44, 44, 0.4); backdrop-filter: blur(15px); z-index: 2000;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; transition: all 0.4s ease;
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+
+.login-modal {
+    background: rgba(255, 255, 255, 0.95); width: 90%; max-width: 420px; border-radius: 32px;
+    padding: 50px 35px; position: relative; box-shadow: 0 30px 90px rgba(0,0,0,0.2);
+    transform: translateY(40px) scale(0.9); transition: transform 0.5s var(--ease-luxury);
+    text-align: left; color: #333 !important; border: 1px solid rgba(255,255,255,0.5);
+}
+.modal-overlay.active .login-modal { transform: translateY(0) scale(1); }
+
+.login-header h2 { margin-bottom: 25px; text-align: center; font-size: 1.8rem; color: #000 !important; font-family: var(--font-heading); }
+.login-tabs { display: flex; border-bottom: 2px solid #f0f0f0; margin-bottom: 30px; }
+
+.tab-btn { 
+    flex: 1; padding: 12px; background: none; border: none; 
+    font-size: 1.1rem; cursor: pointer; position: relative; color: #aaa !important; 
+    font-family: var(--font-heading);
+}
+.tab-btn.active { color: #000 !important; font-weight: 600; }
+.tab-btn.active::after { 
+    content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); 
+    width: 30px; height: 4px; background: var(--accent-color); border-radius: 10px; 
+}
+
+.close-modal-btn { position: absolute; top: 25px; right: 25px; background: transparent; border: none; font-size: 28px; color: #ccc !important; cursor: none; transition: transform 0.3s; }
+.close-modal-btn:hover { color: #333 !important; transform: rotate(90deg); }
+
+.login-form-group { margin-bottom: 20px; position: relative; }
+.login-input { 
+    width: 100%; padding: 15px 20px; border: 2px solid #f4f4f4; 
+    background: #fff !important; border-radius: 16px; font-size: 1rem; color: #333 !important; cursor: text; 
+    transition: all 0.3s; font-family: var(--font-body);
+}
+.login-input:focus { border-color: var(--accent-color); background: #fff !important; outline: none; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.05); }
+
+.verify-code-btn { 
+    position: absolute; right: 8px; top: 8px; border: none; background: rgba(212, 175, 55, 0.1) !important; 
+    color: var(--accent-color) !important; padding: 8px 15px; font-size: 0.9rem; 
+    cursor: pointer; border-radius: 10px; font-weight: bold; font-family: var(--font-body);
+}
+.verify-code-btn:hover { background: var(--accent-color) !important; color: white !important; }
+
+.btn-full-login { 
+    width: 100%; padding: 15px; background: #222 !important; color: white !important; 
+    border: none; border-radius: 50px; font-size: 1.1rem; margin-top: 15px; transition: background 0.3s; cursor: none; 
+    letter-spacing: 3px; font-family: var(--font-heading);
+}
+.btn-full-login:hover { background: var(--accent-color) !important; box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3); }
+
+/* --- 协议勾选 --- */
+.agreement-box { 
+    display: flex; align-items: center; justify-content: center; gap: 8px; 
+    font-size: 0.85rem; color: #666 !important; margin-top: 20px; width: 100%; font-family: var(--font-body);
+}
+.agreement-box input { 
+    cursor: pointer; margin: 0; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--accent-color); 
+}
+.agreement-box label { 
+    color: #666 !important; text-decoration: none; cursor: pointer; 
+    text-align: left; line-height: 1.4; 
+}
+.agreement-box a { 
+    color: var(--accent-color) !important; text-decoration: none; 
+    border-bottom: 1px dashed var(--accent-color); cursor: none; margin: 0 2px; font-weight: 600;
+}
+
+.divider { margin: 35px 0 25px; text-align: center; border-bottom: 1px solid #eee; line-height: 0.1em; }
+.divider span { background: #fff; padding: 0 15px; color: #ccc !important; font-size: 0.85rem; font-family: var(--font-heading); }
+
+.social-login-bar { display: flex; justify-content: center; gap: 25px; }
+.social-btn { width: 50px; height: 50px; border-radius: 50%; border: 1px solid #f0f0f0; background: white; display: flex; align-items: center; justify-content: center; transition: all 0.3s; cursor: none; }
+.social-btn:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+.social-btn img, .social-btn svg { width: 26px; height: 26px; }
+.social-btn.qq:hover { border-color: #12B7F5; }
+.social-btn.wechat:hover { border-color: #07C160; }
+.social-btn.google:hover { border-color: #DB4437; }
+
+/* --- 流光特效 --- */
+.shimmer-text {
+    color: #D4AF37; 
+    background: linear-gradient(120deg, #D4AF37 0%, #FDFBF0 50%, #D4AF37 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite; 
+    font-family: var(--font-heading);
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+}
+@keyframes shine { to { background-position: 200% center; } }
+
+/* --- 鼠标光圈 --- */
+#cursor-dot, #cursor-ring {
+    position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 99999; will-change: transform;
+}
+#cursor-dot {
+    width: 10px; height: 10px; background-color: var(--accent-color); margin-left: -5px; margin-top: -5px;
+}
+#cursor-ring {
+    width: 50px; height: 50px; border: 1.5px solid var(--accent-color); margin-left: -25px; margin-top: -25px; opacity: 0.5;
+}
+
+/* --- 页脚社交图标 --- */
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.social-links { display: flex; gap: 20px; }
+.social-icon {
+    color: #888; font-size: 1rem; text-decoration: none; 
+    transition: all 0.3s; cursor: none;
+    border: 1px solid #555; border-radius: 50%; width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+}
+.social-icon:hover {
+    color: var(--accent-color); border-color: var(--accent-color);
+    transform: translateY(-3px); background: rgba(212, 175, 55, 0.1);
+}
+
+/* 1. 修复红色圈圈里的蓝色链接，把它变成高级按钮 */
+.btn-luxury {
+    display: inline-block;          /* 让按钮有形状，不再只是一行字 */
+    padding: 15px 50px;             /* 增加按钮内边距：上下15px，左右50px */
+    border: 1px solid white;        /* 加一个白色细边框 */
+    color: white;                   /* 文字变成白色 */
+    text-decoration: none;          /* 去掉原本难看的下划线 */
+    font-size: 1.2rem;              /* 字体稍微大一点 */
+    margin-top: 40px;               /* 让按钮和上面的文字拉开距离 */
+    letter-spacing: 2px;            /* 字间距变宽，更高级 */
+    transition: all 0.3s;           /* 添加丝滑的动画过渡 */
+}
+
+/* 鼠标移上去的效果 */
+.btn-luxury:hover {
+    background: white;              /* 背景变白 */
+    color: black;                   /* 文字变黑 */
+    transform: translateY(-5px);    /* 按钮微微上浮 */
+}
+
+/* 2. 修复红色圈圈里的标题，让它们居中并留出呼吸感 */
+.section-title {
+    text-align: center;             /* 文字居中 */
+    font-size: 2.5rem;              /* 标题字号加大 */
+    margin-top: 100px;              /* 顶部留出大片空白（呼吸感关键） */
+    margin-bottom: 60px;            /* 底部留出空白 */
+    font-weight: 300;               /* 字体变细，不那么粗笨 */
+    letter-spacing: 5px;            /* 字间距拉大，增加高级感 */
+    color: #333;                    /* 使用深灰色，比纯黑柔和 */
+    position: relative;             /* 为了加下面的装饰线做准备 */
+}
+
+/* 在标题下面加一根金色的小横线装饰 */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 50px;                    /* 横线宽度 */
+    height: 3px;                    /* 横线厚度 */
+    background-color: #D4AF37;      /* 金色 */
+    margin: 20px auto 0;            /* 自动居中 */
+}

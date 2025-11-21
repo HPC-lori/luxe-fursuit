@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定制流程 | LUXE FURSUIT</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* --- Page Header --- */
+        .page-header { 
+            padding-top: 150px; padding-bottom: 80px; text-align: center; 
+            background: white; padding-left: 20px; padding-right: 20px; 
+        }
+        .page-header h1 { font-size: 2.5rem; font-weight: 300; letter-spacing: 3px; margin-bottom: 10px; }
+        
+        /* --- Timeline Component (时间轴) --- */
+        .timeline-container { max-width: 800px; margin: 0 auto; padding: 50px 20px; position: relative; }
+        /* Central Line */
+        .timeline-container::after { content: ''; position: absolute; width: 2px; background-color: #e0e0e0; top: 0; bottom: 0; left: 50%; margin-left: -1px; }
+        
+        /* Timeline Items */
+        .timeline-item { 
+            padding: 10px 40px; position: relative; background-color: inherit; width: 50%; 
+            opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; 
+        }
+        /* Animation Delays */
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; } 
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; } 
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; } 
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+        
+        /* Directional Classes */
+        .left { left: 0; text-align: right; } 
+        .right { left: 50%; text-align: left; }
+        
+        /* Dots */
+        .timeline-item::after { 
+            content: ''; position: absolute; width: 20px; height: 20px; right: -10px; 
+            background-color: white; border: 3px solid var(--accent-color); border-radius: 50%; 
+            top: 15px; z-index: 1; 
+        }
+        .right::after { left: -10px; }
+        
+        /* Content Cards */
+        .content { padding: 20px 30px; }
+        .step-number { color: var(--accent-color); font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px; }
+        .time-estimate { font-size: 0.85rem; color: #999; margin-top: 10px; display: block; border-top: 1px solid #eee; padding-top: 10px; }
+        
+        /* --- Pricing Section (价格表) --- */
+        .price-section { background-color: #1a1a1a; color: white; text-align: center; padding: 80px 20px; margin-top: 50px; }
+        .price-grid { display: flex; justify-content: center; gap: 30px; margin-top: 40px; flex-wrap: wrap; }
+        .price-card { background: rgba(255,255,255,0.05); padding: 30px; border: 1px solid rgba(255,255,255,0.2); width: 300px; }
+        .price-amount { font-size: 1.5rem; color: var(--accent-color); margin: 15px 0; display: block; }
+        
+        /* --- Keyframes --- */
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) { 
+            .timeline-container::after { left: 31px; } 
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 0; } 
+            .timeline-item::after { left: 21px; } 
+            .left { text-align: left; } 
+            .right { left: 0; } 
+            .price-card { width: 100%; } 
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="glass-effect">
+        <div class="logo"><a href="index.html" class="shimmer-text">Luxe Fursuit</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html" data-en="Home">首页</a></li>
+                <li><a href="process.html" style="color: var(--accent-color);" data-en="Process">定制流程</a></li>
+                <li><a href="gallery.html" data-en="Gallery">作品赏析</a></li>
+                <li><a href="inquiry.html" data-en="Order Now">登记数据</a></li>
+            </ul>
+        </nav>
+        <div class="action-bar">
+            <button id="langBtn" class="btn-icon">EN</button>
+            <button id="loginBtn" class="btn-icon btn-login">登录</button>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>CUSTOMIZATION JOURNEY</h1>
+        <p data-en="From inspiration to reality, every step we take.">从灵感到现实，我们要经历的每一步</p>
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline-item left">
+            <div class="content">
+                <span class="step-number">STEP 01</span>
+                <h3 data-en="Consultation">咨询与概念确认</h3>
+                <p data-en="Submit your reference sheet or description. We discuss feasibility and schedule.">您提交设定图或描述，我们进行初步沟通，确认风格可行性与排期。</p>
+                <span class="time-estimate" data-en="⏱ Est. Time: 3-5 Days">⏱ 预计耗时: 3-5 天</span>
+            </div>
+        </div>
+        <div class="timeline-item right">
+            <div class="content">
+                <span class="step-number">STEP 02</span>
+                <h3 data-en="Design & Material">设计定稿 & 选材</h3>
+                <p data-en="Designers provide 3-view details. Fur samples are sent for your confirmation.">设计师出具三视图细节，寄送毛料色卡供您确认手感与色泽。</p>
+                <span class="time-estimate" data-en="⏱ Est. Time: 1-2 Weeks">⏱ 预计耗时: 1-2 周</span>
+            </div>
+        </div>
+        <div class="timeline-item left">
+            <div class="content">
+                <span class="step-number">STEP 03</span>
+                <h3 data-en="Shaping & Fitting">海绵塑形 & 试穿</h3>
+                <p data-en="Completing the foam base. Videos sent to confirm dynamic effects.">完成头部与身体的海绵骨架。我们将发送视频确认动态效果。</p>
+                <span class="time-estimate" data-en="⏱ Est. Time: 4-6 Weeks">⏱ 预计耗时: 4-6 周</span>
+            </div>
+        </div>
+        <div class="timeline-item right">
+            <div class="content">
+                <span class="step-number">STEP 04</span>
+                <h3 data-en="Sewing & Details">缝制与细节刻画</h3>
+                <p data-en="Hand-sewing fur, installing eyes/claws, and final facial trimming.">手工缝制毛皮，安装眼睛、爪垫等精密部件，进行面部修剪（精修）。</p>
+                <span class="time-estimate" data-en="⏱ Est. Time: 3-4 Weeks">⏱ 预计耗时: 3-4 周</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="price-section">
+        <h2 style="font-weight: 300; letter-spacing: 2px;" data-en="Pricing Plans">价格方案</h2>
+        <p style="color: #999; margin-top: 10px;" data-en="Adjusted based on complexity and materials">根据工艺复杂度与配件材质有所调整</p>
+        
+        <div class="price-grid">
+            <div class="price-card">
+                <h4 data-en="Head Only">头部定制 (Head Only)</h4>
+                <span class="price-amount">¥ 8,000 起</span>
+                <p style="font-size: 0.9rem; color: #ccc;" data-en="Includes 3D Eyes / Moving Jaw">包含 3D 打印眼 / 活动下巴 / 基础风扇</p>
+            </div>
+            <div class="price-card">
+                <h4 data-en="Partial Suit">半装 (Partial Suit)</h4>
+                <span class="price-amount">¥ 12,000 起</span>
+                <p style="font-size: 0.9rem; color: #ccc;" data-en="Head + Hands + Feet + Tail">头部 + 手爪 + 脚爪 + 尾巴</p>
+            </div>
+            <div class="price-card">
+                <h4 data-en="Full Suit">全装 (Full Suit)</h4>
+                <span class="price-amount">¥ 20,000 起</span>
+                <p style="font-size: 0.9rem; color: #ccc;" data-en="Tailored Bodysuit / Muscle Padding">量身定制连体衣 / 肌肉填充 / 极致细节</p>
+            </div>
+        </div>
+    </section>
+
+   <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://x.com/llllin_qu" target="_blank" class="social-icon" aria-label="X">
+                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor;">
+                        <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path>
+                    </svg>
+                </a>
+                
+                <a href="https://space.bilibili.com/360146309" target="_blank" class="social-icon" aria-label="Bilibili">
+                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+                        <path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.866 0 17.356V9.987c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.854l-2.043-3.157a.933.933 0 0 1-.029-.148.51.51 0 0 1 .16-.363c.076-.08.175-.12.296-.12.129 0 .238.049.326.148l2.312 3.63h9.582l2.312-3.63c.08-.09.19-.14.326-.148.121 0 .22.04.296.12a.51.51 0 0 1 .16.363.933.933 0 0 1-.03.148l-2.042 3.157Zm-4.635 7.418c.653 0 1.178-.525 1.178-1.178s-.525-1.178-1.178-1.178-1.178.525-1.178 1.178.525 1.178 1.178 1.178Zm-5.334 0c.653 0 1.178-.525 1.178-1.178s-.525-1.178-1.178-1.178-1.178.525-1.178 1.178.525 1.178 1.178 1.178Z"></path>
+                    </svg>
+                </a>
+                
+                <a href="https://v.douyin.com/m57dfMN44Dk/" target="_blank" class="social-icon" aria-label="Douyin">
+                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+                        <path d="M18.25 4.99a6.22 6.22 0 0 0-4.6-2.3V16.6a3.5 3.5 0 1 1-3.5-3.5 3.34 3.34 0 0 1 .82.1v-4a7.33 7.33 0 0 0-4.32 1.4 7.5 7.5 0 0 0-2.9 3.8A7.5 7.5 0 0 0 4 16.9a7.55 7.55 0 0 0 7.5 7.5A7.55 7.55 0 0 0 19 16.9V8.42a10.5 10.5 0 0 0 4.3 1.17V5.69a6.43 6.43 0 0 1-5.05-1.07z"></path>
+                    </svg>
+                </a>
+            </div>
+            <p>&copy; 2025 Luxe Fursuit Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
